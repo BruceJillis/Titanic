@@ -15,4 +15,4 @@ test <- read.csv('test-clean.csv', sep=';')
 test$Survived <- predict(model, newdata=test, type="response")
 test$Survived = round(test$Survived)
 
-write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=F, quote=FALSE)
+write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=FALSE, quote=FALSE)

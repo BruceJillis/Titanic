@@ -19,9 +19,9 @@ clean$Survived <- as.factor(clean$Survived)
 model <- randomForest(
 	Survived ~ Pclass + Sex + Age + SibSp + Parch + Embarked + Pclass:Sex + Pclass:Age + Age:Sex, 
 	data=clean,
-	ntree=20000
+	ntree=2000
 )
-summary(model)
+print(model)
 
 test <- read.csv('data/test-clean.csv', sep=';')
 test$Survived <- predict(model, newdata=test, type="response")
