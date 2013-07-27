@@ -1,7 +1,10 @@
 Titanic
 =======
 
-R code for sharing my solution to Kaggle's Titanic knowledge contest in the context of [grendelgrey's post](http://www.reddit.com/r/MachineLearning/comments/1j4prp/lets_learn_r_together_kaggles_titanic_competition/) on /r/machinelearning.
+R code for sharing my solution to Kaggle's Titanic knowledge contest in the context of some collaborative learning on /r/machinelearning.
+
+* [grendelgrey's post](http://www.reddit.com/r/MachineLearning/comments/1j4prp/lets_learn_r_together_kaggles_titanic_competition/)
+* [kaggle competition page](http://www.kaggle.com/c/titanic-gettingStarted)
 
 Data Legend
 -----------
