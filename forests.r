@@ -5,7 +5,6 @@
 # ?read.csv
 # help(read.csv)
 
-
 # train <- read.csv('train.csv', sep=',')
 # # print structure
 # str(train)
@@ -14,7 +13,7 @@
 library(randomForest)
 set.seed(42)
 
-clean <- read.csv('train-clean.csv', sep=';')
+clean <- read.csv('data/train-clean.csv', sep=';')
 clean$Survived <- as.factor(clean$Survived)
 
 model <- randomForest(
@@ -22,8 +21,9 @@ model <- randomForest(
 	data=clean,
 	ntree=20000
 )
+summary(model)
 
-test <- read.csv('test-clean.csv', sep=';')
+test <- read.csv('data/test-clean.csv', sep=';')
 test$Survived <- predict(model, newdata=test, type="response")
-
-write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=F, quote=FALSE)
+	
+write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=FALSE, quote=FALSE)
