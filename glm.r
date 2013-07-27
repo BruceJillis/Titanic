@@ -1,7 +1,9 @@
 set.seed(42)
 
-clean <- read.csv('train-clean.csv', sep=';')
-clean$Survived <- as.factor(clean$Survived)
+train <- read.csv('data/train.csv', sep=',', na.strings=c(''))
+train$Survived <- as.factor(train$Survived)
+
+summary(train)
 
 model <- glm(
 	Survived ~ Pclass + Sex + Age + SibSp + Parch + Pclass:Sex + Pclass:Age + Age:Sex,
