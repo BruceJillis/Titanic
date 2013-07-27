@@ -5,6 +5,7 @@ train <- train[1:20,c(1,2,6,10)]
 summary(train)
 
 random.imp <- function (a){
+	# simple random imputation
 	missing <- is.na(a)
 	n.missing <- sum(missing)
 	a.obs <- a[!missing]
