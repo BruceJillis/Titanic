@@ -31,10 +31,11 @@ anova(glm.out, test="Chisq")
 # In this print out, however, the reduction in deviance is shown for each term, added sequentially first to last. 
 # Of note is the 3-way interaction term, which produced a nearly significant reduction in deviance of 3.305 on 1 degree of freedom (p = 0.069).
 
-# plot 
+# plot todo: intepretation 
+# 0.3 & 0.5 via antilog?
 plot(glm.out$fitted)
 abline(v=30.5,col="red")
 abline(h=.3,col="green")
 abline(h=.5,col="green")
-text(15,.9,"seen = 0")
-text(40,.9,"seen = 1")
+text(15, 0.9, "seen = 0")
+text(40, 0.9, "seen = 1")

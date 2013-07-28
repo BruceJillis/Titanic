@@ -24,5 +24,13 @@ train.imp$Age <- impute(train$Age, mean)
 #   train.imp$Age <- with(train, impute(Age, mean))
 train.imp$Embarked <- impute(train.imp$Embarked, median)
 
+custom <- function(x) {
+	m = is.na(x)
+	return (rep(1:5, each=sum(m)))
+}
+custom(train$Age)
+train.imp$Age <- impute(train$Age, custom(train$Age))
+
+
 summary(train.imp)
 

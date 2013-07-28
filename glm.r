@@ -1,32 +1,32 @@
 set.seed(42)
 
-train <- read.csv('data/train.csv', sep=',', na.strings=c(''))
+read.data <- function(file, drop) {
+	# read training data
+	data <- read.csv(file, sep=',', na.strings=c(''))
+	# drop some columns
+	data <- subset(train, select = drop)
 
-# drop some rows
-train$Cabin <- NULL
-train$Ticket <- NULL
-train$Name <- NULL
+	# correct some column types
+	data$Sex <- as.factor(data$Sex)
+	data$Cabin <- as.factor(data$Cabin)
+	data$Embarked <- as.factor(data$Embarked)
+	data$Survived <- as.factor(data$Survived)
 
-# mark some rows as nominal
-train$Sex <- as.factor(train$Sex)
+	return (data)
+}
 
-summary(train)
+drop = -c(Ticket, Name, Fare)
+train <- read.data('data/train.csv', drop)
+test <- read.data('data/test.csv', drop)
 
 model <- glm(
-	Survived ~ Pclass + Sex + Age + SibSp + Parch + Pclass:Sex + Pclass:Age + Age:Sex,
+	Survived ~ Pclass * Sex + Pclass * Age + Age * Sex + SibSp + Parch + Embarked + Cabin,
 	data=train, 
 	family="binomial"
 )
 summary(model)
-confint(model)
 
-test <- read.csv('data/test.csv', sep=',')
-
-test$Cabin <- NULL
-test$Ticket <- NULL
-test$Name <- NULL
-
-test$Sex <- as.factor(test$Sex)
+anova(model, test="Chisq")
 
 test$Survived <- predict(model, newdata=test, type="response")
 test$Survived = round(test$Survived)
