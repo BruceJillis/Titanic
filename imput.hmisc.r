@@ -3,19 +3,15 @@ set.seed(42)
 # read training data
 
 # note the na.strings so that the 1 empty entry is picked up as an NA
-train <- read.csv('data/train.csv', sep=',', na.strings=c(''))
-# select subset to keep things managable
-train <- train[1:10,]
-
+train <- read.csv('data/train.csv', sep=',', na.strings=c(''))[1:10,]
 # drop some columns
-train$Cabin <- NULL
-train$Ticket <- NULL
-train$Name <- NULL
-
+train <- subset(train, select = -c(Cabin, Ticket, Name, Fare))
 # correct some column types
 train$Sex <- as.factor(train$Sex)
 train$Embarked <- as.factor(train$Embarked)
+# add explicit levels argument to make R use 0 and 1 as the levels instead of 1 and 2
 train$Survived <- as.factor(train$Survived)
+summary(train)
 
 library(Hmisc)
 train.imp = train
