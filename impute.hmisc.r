@@ -24,11 +24,13 @@ train.imp$Age <- impute(train$Age, mean)
 #   train.imp$Age <- with(train, impute(Age, mean))
 train.imp$Embarked <- impute(train.imp$Embarked, median)
 
+# custom replacement function, impute uses the result in order
 custom <- function(x) {
 	m = is.na(x)
-	return (rep(1:5, each=sum(m)))
+	# you can sum booleans to obtain a count of the true values
+	# return (rep(1, each=sum(m)))
+	return (seq(1, sum(m)))
 }
-custom(train$Age)
 train.imp$Age <- impute(train$Age, custom(train$Age))
 
 
