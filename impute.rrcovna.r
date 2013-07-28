@@ -16,6 +16,13 @@ summary(train)
 str(train)
 
 # impute missing multivariate data using sequential algorithm
-train.imp = impSeq(train)
-summary(train.imp)
-str(train.imp)
+train.imp_seq = impSeq(train)
+summary(train.imp_seq)
+str(train.imp_seq)
+
+# Impute missing multivariate data using robust sequential algorithm using explicit default alpha
+# we need to get the x column of the returned result to obtain the imputed dataframe
+train.imp_seq_rob = impSeqRob(train, alpha=0.9)$x
+summary(train.imp_seq_rob)
+str(train.imp_seq_rob)
+
