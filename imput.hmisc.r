@@ -9,7 +9,6 @@ train <- subset(train, select = -c(Cabin, Ticket, Name, Fare))
 # correct some column types
 train$Sex <- as.factor(train$Sex)
 train$Embarked <- as.factor(train$Embarked)
-# add explicit levels argument to make R use 0 and 1 as the levels instead of 1 and 2
 train$Survived <- as.factor(train$Survived)
 summary(train)
 
