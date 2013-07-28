@@ -4,14 +4,8 @@ set.seed(42)
 
 # note the na.strings so that the 1 empty entry is picked up as an NA
 train <- read.csv('data/train.csv', sep=',', na.strings=c(''))
-# select subset to keep things managable
-train <- train[1:100,]
-
 # drop some columns
-train$Cabin <- NULL
-train$Ticket <- NULL
-train$Name <- NULL
-
+train <- subset(train, select = -c(Cabin, Ticket, Name, Fare))
 # correct some column types
 train$Sex <- as.factor(train$Sex)
 train$Embarked <- as.factor(train$Embarked)
