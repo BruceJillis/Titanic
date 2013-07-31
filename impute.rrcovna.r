@@ -1,4 +1,4 @@
-library(ggcovna)
+library(rrcovNA)
 set.seed(42)
 
 # read training data
