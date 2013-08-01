@@ -31,20 +31,20 @@ cabin_to_deck <- function(data) {
 # Cabin
 train$Cabin = cabin_to_deck(train$Cabin)
 train$Cabin = factor(train$Cabin, levels=c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'T'))
-train$Cabin = impute(train$Cabin, median)
+train$Cabin = impute(train$Cabin, max)
 
 
 test$Cabin = cabin_to_deck(test$Cabin)
 test$Cabin = factor(test$Cabin, levels=c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'T'))
-test$Cabin = impute(test$Cabin, median)
+test$Cabin = impute(test$Cabin, max)
 
 # Age
 train$Age <- impute(train$Age, mean)
 test$Age <- impute(test$Age, mean)
 
 # Embarked
-train$Embarked <- impute(factor(train$Embarked), median)
-test$Embarked <- impute(factor(test$Embarked), median)
+train$Embarked <- impute(factor(train$Embarked), max)
+test$Embarked <- impute(factor(test$Embarked), max)
 
 # Sex
 train$Sex <- factor(train$Sex)
@@ -58,13 +58,21 @@ str(train)
 str(test)
 
 model <- randomForest(
-	Survived ~ (Pclass + Sex + Age + SibSp + Parch + Embarked)^6, 
+	Survived ~ Pclass + Sex + Age + SibSp + Parch + Embarked + Cabin , 
 	data=train,
-	ntree=5000,
-	mtry=3
+	ntree=2002,
+	mtry=2,
+	replace=FALSE,
+	importance=TRUE,
+	proximity=TRUE,
+	# we should have 0 na's so die loudly if we find any
+	na.action=na.fail
 )
 print(model)
+importance(model)
 
-test$Survived <- predict(model, newdata=test, type="response")
+#print(model$importance)
+
+#test$Survived <- predict(model, newdata=test, type="response")
 	
-write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=FALSE, quote=FALSE)
+#write.csv(test[,c("PassengerId", "Survived")], file="predictions.csv", row.names=FALSE, quote=FALSE)
