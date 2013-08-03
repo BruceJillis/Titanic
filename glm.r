@@ -52,6 +52,8 @@ model <- glm(
 		Pclass : Sex +
 		Pclass : Age + 
 		Pclass : Cabin + 
+		Sex : SibSp + 
+		Sex : Parch + 
 		Sex : Age + 
 		Sex : Cabin + 
 		Age : Cabin,
@@ -62,8 +64,6 @@ model <- glm(
 summary(model)
 
 anova(model, test="Chisq")
-confint(model)
-
 if(T){
 head(test)
 test$Survived <- predict(model, newdata=test, type="response")
